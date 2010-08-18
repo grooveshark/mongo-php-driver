@@ -404,11 +404,14 @@ void mongo_init_MongoDate(TSRMLS_D) {
  */
 PHP_METHOD(MongoBinData, __construct) {
   char *bin;
-  int bin_len, type = 2;
+  long bin_len, type = 2;
 
   if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s|l", &bin, &bin_len, &type) == FAILURE) {
     return;
   }
+
+  php_printf("length: %ld\n", bin_len);
+  php_printf("type: %ld\n", type);
   
   zend_update_property_stringl(mongo_ce_BinData, getThis(), "bin", strlen("bin"), bin, bin_len TSRMLS_CC);
   zend_update_property_long(mongo_ce_BinData, getThis(), "type", strlen("type"), type TSRMLS_CC);
